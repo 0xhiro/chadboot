@@ -10,16 +10,16 @@ b = load_second_stage
 # RUNNERS
 #*********************************************************
 
-all: ./target/chadboot.img
+all: ./target/chadboot.bin
 
 clean:
 	rm -fr target/*.bin target/*.elf target/*.dis target/*.o target/*.img target/*.map target/*.a
 
 run: all
-	qemu-system-x86_64 -drive file=./target/chadboot.img,format=raw,index=0,media=disk --no-reboot --no-shutdown -d int -M smm=off -s
+	qemu-system-x86_64 -drive file=./target/chadboot.bin,format=raw,index=0,media=disk --no-reboot --no-shutdown -d int -M smm=off -s
 
 debug: all 
-	qemu-system-x86_64 -D ./qemu.logs -drive file=./target/chadboot.img,format=raw,index=0,media=disk --no-reboot --no-shutdown -d int -M smm=off -S -s &
+	qemu-system-x86_64 -D ./qemu.logs -drive file=./target/chadboot.bin,format=raw,index=0,media=disk --no-reboot --no-shutdown -d int -M smm=off -S -s &
 	clear
 	make qemu-logs 
 	
@@ -35,10 +35,10 @@ qemu-logs:
 #*********************************************************
 
 
-# IMAGE MAKER
+# MERGE STAGES
 #*********************************************************
 
-./target/chadboot.img: ./target/first_stage.bin ./target/second_stage.bin
+./target/chadboot.bin: ./target/first_stage.bin ./target/second_stage.bin
 	cat $^ > $@
 
 #*********************************************************

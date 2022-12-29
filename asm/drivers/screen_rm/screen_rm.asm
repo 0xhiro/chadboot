@@ -9,6 +9,7 @@
 
 [bits 16]
 
+; TODO: extend features 😀✏️
 ; prints strings using a BIOS routine [bx]
 print_rm:
 	pusha
