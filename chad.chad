@@ -6,6 +6,9 @@ let version = "0.2.2";
 let run = "./chad/run.chad";
 let build = "./chad/build.chad";
 let test = "./test/test.chad";
+let gdb = "./chad/gdb.chad";
+let utils = "./chad/utils.chad";
+let clean = "./chad/clean.chad";
 let all = build;
 
 // FLAGS

@@ -1,0 +1,11 @@
+fn size() {
+  cmd("cd .. && ls  -lah ./target/ | awk '{print $$9, $$5}' | grep -E '.bin|.img'");
+}
+
+fn qemu_logs() {
+  cmd("cd .. && tail -f qemu.logs");
+}
+
+fn main() {
+  cmd("cd .. && gdb -q -x ./gdb.conf");
+}

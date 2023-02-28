@@ -1,7 +1,5 @@
 fn main(){
   cmd("echo running chadboot");
 
-  cmd("chad all");
-
-  cmd("cd .. && ./target/kim");
+  cmd("cd .. &&	qemu-system-x86_64 -drive file=./target/chadboot.bin,format=raw,index=0,media=disk --no-reboot --no-shutdown -d int -M smm=off -s");
 }

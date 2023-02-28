@@ -1,23 +1,3 @@
 fn main() {
-    cmd("echo building kim");
-
-    cmd("cd ../rust/view && cargo build --release");
-
-    let sources = "$(find ../c -name '*.c')";
-    let build_out = "../target/kim ";
-    let build_cmd = strcat("gcc -w -Os -o ", build_out);
-    build_cmd = strcat(build_cmd, sources);
-
-    build_cmd = strcat(build_cmd, " -L../rust/view/target/release -lkimview");
-
-    println(build_cmd);
-
-    cmd(build_cmd);
-
-    cmd("strip ../target/kim");
+    cmd("cd .. && make all");
 }
-
-// ./target/kim: make_dir ./c/include/*.h $(sources)
-// 	# cd rust/view && cargo build --quiet --release
-// 	gcc -w -Os -o $@ $(sources) -L./rust/view/target/release -lkimview
-// 	strip $@

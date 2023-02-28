@@ -1,0 +1,3 @@
+fn main() {
+  cmd("cd .. && 	rm -fr target/*.bin target/*.elf target/*.dis target/*.o target/*.img target/*.map target/*.a");
+} 
