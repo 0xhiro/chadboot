@@ -3,7 +3,7 @@
 
 # Chadboot - A modern, tiny bootloader for Operating systems
 
-kim is a modern, tiny bootloader for Operating systems
+Chadboot is a modern, tiny bootloader for Operating systems
 
 ## Features
 
