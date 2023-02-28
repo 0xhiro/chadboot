@@ -1,1 +1,1 @@
-# chadboot
+# Chadboot - A modern, tiny bootloader for Operating systems 

@@ -9,12 +9,11 @@
 
 [bits 64]
 global a_print ; make the function globally accessible by C, Rust and other external callers
-global a_set_cursor
 global a_print_char
 
 ; Prints strings using the VGA text buffer [edi]
 a_print:
-		mov ecx , VIDEO_MEMORY
+	mov ecx , VIDEO_MEM
 
 print_loop:
 	mov al, [edi]
@@ -22,7 +21,10 @@ print_loop:
 	cmp al, 0
 	je done
 
-	call a_print_byte
+	
+	mov ah, DEFAULT_COLOR
+	mov [ecx], ax
+
 			
 	add edi, 1
 	add ecx, 2
@@ -33,39 +35,56 @@ done:
 	ret
 
 
-; prints a single byte [ax]
-a_print_byte:
-	mov ah, DEFAULT_COLOR
-	mov [ecx], ax
-
-	ret
-
-; sets the position of the cursor []
-; offset is passed as
-a_set_cursor:
-	mov bx, [edi] ; input
-		
+; gets the position of the cursor > ax
+a_get_cursor:
 	mov dx, SCREEN_CTRL
-	mov al, OFFSET_LOW
-	out dx, al
- 
-	inc dl
-	mov al, bl
-	out dx, al
- 
-	dec dl
 	mov al, OFFSET_HIGH
 	out dx, al
  
-	inc dl
-	mov al, bh
+	mov dx, SCREEN_DATA
+	in ax, dx
+
+ 	push ax
+	mov dx, SCREEN_CTRL
+	mov al, OFFSET_LOW
+	out dx, al
+	pop ax
+
+	mov cx, ax
+	mov dx, SCREEN_DATA
+	in ax, dx
+	add ax, cx
+	
+	ret
+
+
+; sets the position of the cursor [ebx]
+; offset is passed as bx
+a_set_cursor:
+	mov dx, SCREEN_CTRL
+	mov al, OFFSET_HIGH
+	out dx, al
+ 
+	mov dx, SCREEN_DATA
+	mov ax, bx
+	shr al, 8
+	out dx, al
+ 
+	mov dx, SCREEN_CTRL
+	mov al, OFFSET_LOW
+	out dx, al
+
+
+	mov dx, SCREEN_DATA
+	mov ax, bx
+	and al, 0xff
 	out dx, al
 	ret
 
 
 
 ; global variables
-VIDEO_MEMORY equ 0xb8000
+VIDEO_MEM equ 0xb8000
 DEFAULT_COLOR equ 0x0a
 MAX_ROWS equ 25
 MAX_COLS equ 80

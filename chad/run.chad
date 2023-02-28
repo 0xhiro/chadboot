@@ -1,0 +1,7 @@
+fn main(){
+  cmd("echo running chadboot");
+
+  cmd("chad all");
+
+  cmd("cd .. && ./target/kim");
+}

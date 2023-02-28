@@ -13,15 +13,23 @@ _start: ; we start in 16-bit REAL MODE
 
 
 [bits 16]
-mov bp, 0x90000 ; Initialize our stack at 0x9000, far from our code
-mov sp, bp
+
+xor  ax, ax
+mov  ds, ax
+mov  es, ax    
+
+mov  [BOOT_DRIVE], dl
+mov  ax, 0x07E0
+cli
+mov  ss, ax 
+mov  sp, 0x1200
+sti
+
 
 call clear_screen ; clear the screen because BIOS printed alotta stuff
 
 mov bx, MSG_REAL_MODE
 call print_rm
-
-mov [BOOT_DRIVE], dl ; BIOS stored the current boot drive in dl, so we can save it in the BOOT_DRIVE variable
 
 call load_second_stage
 
@@ -41,10 +49,6 @@ load_second_stage:
 	mov bx, MSG_LOAD_SECOND_STAGE
 	call print_rm
 
-	mov bx, SECOND_STAGE_OFFSET ; bx tells BIOS where to load the data into
-	mov cl, 0x02 ; cl tells BIOS which sector to start from, kinda like an offset. Here we say start from the second sector, which is the sector after the boot sector (coincidentally, we placed our kernel right there)
-	mov dh, 3 ; we are reading 3 sectors
-	mov dl, [BOOT_DRIVE] ; dl tells BIOS which particular disk to read from
 	call read_disk
 
 	mov bx, MSG_LOADED_SECOND_STAGE

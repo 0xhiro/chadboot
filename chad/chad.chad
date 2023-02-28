@@ -1,0 +1,11 @@
+// META
+let name = "Chadboot";
+let version = "0.2.2";
+
+// COMMANDS
+let run = "./run.chad";
+let build = "./build.chad";
+let test = "./test.chad";
+let all = build;
+
+// FLAGS
