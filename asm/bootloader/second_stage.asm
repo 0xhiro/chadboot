@@ -14,6 +14,8 @@
 [bits 16]
 call clear_screen
 
+jmp $
+
 mov [BOOT_DRIVE], dl ; BIOS stored the current boot drive in dl, so we can save it in the BOOT_DRIVE variable
 
 call switch_to_lm

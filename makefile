@@ -38,7 +38,7 @@ qemu-logs:
 # MERGE STAGES
 #*********************************************************
 
-./target/chadboot.bin: ./target/first_stage.bin ./target/second_stage.bin ./target/third_stage.bin ./zero.bin
+./target/chadboot.bin: ./target/first_stage.bin ./target/second_stage.bin ./zero.bin
 	cat $^ > $@
 
 #*********************************************************

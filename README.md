@@ -40,10 +40,6 @@ make run
 
 Documentation can be found in the [docs](https://github.com/0xhiro/chadboot/tree/master/docs) directory.
 
-## Developer Documentation
-
-Documentation for the Kim editor can be found in the [dev-docs](https://github.com/0xhiro/chadboot/tree/master/dev-docs) directory.
-
 ## Contribution
 
 I am currently not accepting pull requests/contributions on this project. You can however contribute by reporting bugs and creating github issues.
